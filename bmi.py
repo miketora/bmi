@@ -20,7 +20,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def messaggi_in_arrivo(bot, update):
-	#Imposto l'uso delle variabili globali
 	global calc
 	global peso
 	global altezza
@@ -64,9 +63,7 @@ def messaggi_in_arrivo(bot, update):
                 weight_category = "obese class III (over 40)"
 
 
-
             bot.sendMessage(update.message.chat_id,'Hello ' + str(nome) + '\n Your BMI:  ' + str(imc) + '\n BMI Category: ' + str(weight_category) + '\n Weight: ' + str(peso) + " kg" +  '\n Height : ' + str(altezza) + " cm")
-
 
 	return
 
@@ -78,14 +75,15 @@ def comando_calc(bot, update):
 	text= "Enter your weight (kg)"
 	bot.sendMessage(update.message.chat_id, text)
 
-
 def lista(bot, update):
 	bot.sendMessage(update.message.chat_id,'\n /start: start bot bmi ' + '\n /info: info bot bmi' + '\n /bmi: start bot bmi' + '\n /list: list command')
 
 def info(bot, update):
 	bot.sendMessage(update.message.chat_id,'\n BMI: ' + '\n The body mass index (BMI) or Quetelet index is a value derived from the mass (weight) and height of an individual. The BMI is defined as the body mass divided by the square of the body height, and is universally expressed in units of kg/m2, resulting from mass in kilograms and height in metres.  Wikipedia')
 
-updater = Updater(token='190809002:AAHlaJbIxoP_8EMabKTT32hXxZFQJIhDLJs')
+TOKEN = sys.argv[1]
+
+updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 dispatcher.addTelegramMessageHandler(messaggi_in_arrivo)
 dispatcher.addTelegramCommandHandler("bmi",comando_calc)
