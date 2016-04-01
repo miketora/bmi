@@ -6,7 +6,6 @@ from telegram import Updater
 import logging
 import telegram
 
-#Definisco le variabili globali
 calc=[]
 peso = 0
 altezza = 0
@@ -14,14 +13,12 @@ operazione = []
 weight_category = []
 nome = []
 
-# Enable logging
 logging.basicConfig(
 		format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 		level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
-# Definisco la funzione che viene chiamata quando arrivano dei messaggi
 def messaggi_in_arrivo(bot, update):
 	#Imposto l'uso delle variabili globali
 	global calc
@@ -30,15 +27,13 @@ def messaggi_in_arrivo(bot, update):
 	global operazione
 	global nome
 
-	#Ciclo che imposta la variabile per controllare il processo
-	if calc==1: #se la variabile è 1 vuol dire che è stato immesso il primo valore quindi lo metto in memoria e chiedo di selezionare l'operazione e incremento la variabile
+	if calc==1: 
             try:
                 peso = float(update.message.text)
             except ValueError:
                 bot.sendMessage(update.message.chat_id,'Give me a number for weight (kg), please.')
                 return
 
-#		peso = float(update.message.text)
             text = "Enter your height (cm)"
             bot.sendMessage(update.message.chat_id, text)
             calc=2
@@ -50,7 +45,6 @@ def messaggi_in_arrivo(bot, update):
             except ValueError:
                 bot.sendMessage(update.message.chat_id,'Give me a number for height (cm), please.')
                 return
-		#altezza = float(update.message.text)
             calc=0
             imc=int(peso/altezza1**2)
 
@@ -76,7 +70,6 @@ def messaggi_in_arrivo(bot, update):
 
 	return
 
-# Definisco la funzione di chiamata calcolatrice
 def comando_calc(bot, update):
 	global calc
 	global nome
